@@ -1,17 +1,55 @@
 # Cyano-dpai-mobile
 
-A tool to help mobile dApps communicate with related provider.
+A tool to help mobile dApps communicate with related provider. It wraps the dapi for mobile dapps and send request to 
 
-> Notice: This dapps are opened in the webview of native app, for example ONTO.
+the provider(native client).
 
-# How does it work?
+> Notice: Those dapps are opened in the webview of native app, for example ONTO.
 
-The dapp use `window.prompt` to send message to the native. The native will intercept the message and handle it.
+## How to use
 
-The dapp will register some event with listeners. The native will trigger the event to send message back to the dapp.
+### Install CommonJS/ES module
 
-## Login
+### Import CommonJS
 
-The login is very simple.
+### Import Es6 module
 
-When the dapp is opend, it will send 
+### Web require
+
+### Initialisation
+
+
+## Usage
+
+Here is a demo app.
+
+# Documentation
+
+# Build
+
+## Required Tools and Dependencies
+
+* Node
+* Npm
+
+## Install
+
+```
+npm install
+```
+
+## Development build
+
+```
+npm run build:dev
+```
+
+The packaged result will be in `/lib`
+
+## Production build
+
+```
+npm run build:prod
+```
+
+The packaged result will be in `/lib`
