@@ -1,3 +1,3 @@
-import CyanoBridge from './CyanoBridge'
+import CyanoBridge from './CyanoBridge';
 
-export { CyanoBridge };
+export default CyanoBridge ;

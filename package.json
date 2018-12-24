@@ -1,7 +1,7 @@
 {
-  "name": "cyano-dapi-mobile",
-  "version": "1.0.0",
-  "description": "Tool for Ontology mobile dapp",
+  "name": "cyanobridge",
+  "version": "0.0.1",
+  "description": "JS bridge for Ontology mobile dapp",
   "main": "./lib/index.js",
   "types": "./lib/types/index.d.ts",
   "scripts": {
