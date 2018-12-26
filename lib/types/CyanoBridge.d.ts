@@ -1,7 +1,8 @@
 declare class CyanoBridge {
     version: string;
     listener: (e: any) => any;
-    constructor();
+    timeout: number;
+    constructor(timeout?: number);
     /**
      * Return the uri to get account from provider
      * @params {object} params
@@ -13,7 +14,7 @@ declare class CyanoBridge {
     getAccount(params?: {
         dappName: string;
         dappIcon: string;
-    }): string;
+    }): Promise<{}>;
     /**
      * Return the uri to get identity from provider
      * @params {object} params
@@ -25,7 +26,7 @@ declare class CyanoBridge {
     getIdentity(params?: {
         dappName: string;
         dappIcon: string;
-    }): string;
+    }): Promise<{}>;
     /**
      * We define the login process is: dapp will send a message to native client,
      * native client will sign the message with
@@ -47,7 +48,7 @@ declare class CyanoBridge {
         dappIcon: string;
         expired: number;
         callback: string;
-    }): string;
+    }): Promise<{}>;
     /**
      * Invoke smart contract that needs wallet signature.
      * @param {string} scriptHash Scripthash of smart contract
@@ -66,11 +67,12 @@ declare class CyanoBridge {
         login: boolean;
         message: string;
         url: string;
-    }): string;
+    }): Promise<{}>;
     invokeRead(): void;
     parseMessage(msg: string): any;
     onMessage(handler: (res: any) => {}): void;
     offMessage(): void;
     private sendMessage;
+    private handleMessageEvent;
 }
 export default CyanoBridge;

@@ -40,12 +40,17 @@ function makeInvokeFunction(operation: string, args: any[]) {
   };
   return obj;
 }
+
 class CyanoBridge {
 
   version: string;
   listener: (e: any) => any;
-  constructor() {
+  timeout: number = 3000;
+  constructor(timeout?: number) {
     this.version = 'v1.0.0';
+    if (timeout) {
+      this.timeout = timeout;
+    }
   }
 
     // tslint:disable:jsdoc-format
@@ -60,17 +65,18 @@ class CyanoBridge {
      */
 
   getAccount(params?: {dappName: string, dappIcon: string}) {
-    const req = {
-      action: 'getAccount',
-      version: this.version,
-      params
-    };
-    const msg = btoa(encodeURIComponent(JSON.stringify(req)));
-    const uri = 'ontprovider://ont.io?params=' + msg;
-    this.sendMessage(uri);
-    return uri;
+    return new Promise((resolve, reject) => {
+      const req = {
+        action: 'getAccount',
+        version: this.version,
+        params
+      };
+      const msg = btoa(encodeURIComponent(JSON.stringify(req)));
+      const uri = 'ontprovider://ont.io?params=' + msg;
+      this.sendMessage(uri);
+      this.handleMessageEvent(resolve, reject, 'getAccount', true);
+    });
   }
-
     /**
      * Return the uri to get identity from provider
      * @params {object} params
@@ -80,15 +86,17 @@ class CyanoBridge {
         }
      */
   getIdentity(params?: { dappName: string, dappIcon: string}) {
-    const req = {
-      action: 'getIdentity',
-      version: this.version,
-      params
-    };
-    const msg = btoa(encodeURIComponent(JSON.stringify(req)));
-    const uri = 'ontprovider://ont.io?params=' + msg;
-    this.sendMessage(uri);
-    return uri;
+    return new Promise((resolve, reject) => {
+      const req = {
+        action: 'getIdentity',
+        version: this.version,
+        params
+      };
+      const msg = btoa(encodeURIComponent(JSON.stringify(req)));
+      const uri = 'ontprovider://ont.io?params=' + msg;
+      this.sendMessage(uri);
+      this.handleMessageEvent(resolve, reject, 'getIdentity', true);
+    });
   }
 
     /**
@@ -119,15 +127,18 @@ class CyanoBridge {
     if (!params.type) {
       params.type = 'account';
     }
-    const req = {
-      action: 'login',
-      version: this.version,
-      params
-    };
-    const msg = btoa(encodeURIComponent(JSON.stringify(req)));
-    const uri = 'ontprovider://ont.io?params=' + msg;
-    this.sendMessage(uri);
-    return uri;
+
+    return new Promise((resolve, reject) => {
+      const req = {
+        action: 'login',
+        version: this.version,
+        params
+      };
+      const msg = btoa(encodeURIComponent(JSON.stringify(req)));
+      const uri = 'ontprovider://ont.io?params=' + msg;
+      this.sendMessage(uri);
+      this.handleMessageEvent(resolve, reject, 'login', false);
+    });
   }
 
     /**
@@ -161,27 +172,30 @@ class CyanoBridge {
     if (!payer) {
       throw new Error('No payer.');
     }
-    const functionParams = makeInvokeFunction(operation, args);
-    const req = {
-      action: 'invoke',
-      version: this.version,
-      params: {
-        login: config.login,
-        url: config.url,
-        message: config.message,
-        invokeConfig: {
-          contractHash: scriptHash,
-          functions: [functionParams],
-          payer,
-          gasLimit,
-          gasPrice
+
+    return new Promise((resolve, reject) => {
+      const functionParams = makeInvokeFunction(operation, args);
+      const req = {
+        action: 'invoke',
+        version: this.version,
+        params: {
+          login: config.login,
+          url: config.url,
+          message: config.message,
+          invokeConfig: {
+            contractHash: scriptHash,
+            functions: [functionParams],
+            payer,
+            gasLimit,
+            gasPrice
+          }
         }
-      }
-    };
-    const msg = btoa(encodeURIComponent(JSON.stringify(req)));
-    const uri = 'ontprovider://ont.io?params=' + msg;
-    this.sendMessage(uri);
-    return uri;
+      };
+      const msg = btoa(encodeURIComponent(JSON.stringify(req)));
+      const uri = 'ontprovider://ont.io?params=' + msg;
+      this.sendMessage(uri);
+      this.handleMessageEvent(resolve, reject, 'invoke', false);
+    });
   }
 
   invokeRead() {
@@ -210,6 +224,28 @@ class CyanoBridge {
 
   private sendMessage(msg: string) {
     window.postMessage(msg, '*');
+  }
+
+  private handleMessageEvent(resolve: any, reject: any, action: string, needTimeout: boolean) {
+    const handler = (event: any) => {
+      const message = event.data;
+      if (!message) {
+        reject(message);
+      }
+      document.removeEventListener('message', handler);
+      const res = this.parseMessage(message);
+      if (res.action === action) {
+        resolve(res);
+      } else {
+        reject(res);
+      }
+    };
+    document.addEventListener('message', handler);
+    if (needTimeout) {
+      setTimeout(() => {
+        reject('Time out');
+      }, this.timeout);
+    }
   }
 
 }
