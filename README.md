@@ -43,7 +43,7 @@ var cyanoBridge = new CyanoMobile.CyanoBridge();
 
 ## Usage
 
-Here is a [demo app](https://github.com/ontio-cyano/cyano-dapi-mobile).
+Here is a [demo app](https://github.com/ontio-cyano/mobile-dapp-demo).
 
 # Documentation
 
