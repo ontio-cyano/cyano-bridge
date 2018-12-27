@@ -38,7 +38,7 @@ The file to be referenced is under the `./lib` folder.
 <script src="./lib/browser.js"></script>
 
 var cyanoBridge = new CyanoMobile.CyanoBridge();
-```
+```$$
 
 
 ## Usage

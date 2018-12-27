@@ -1,3 +1,6 @@
-import CyanoBridge from './CyanoBridge';
+// import CyanoBridge from './CyanoBridge';
+import * as client from './client';
 
-export { CyanoBridge };
+// export { CyanoBridge };
+
+export { client };

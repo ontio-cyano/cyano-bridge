@@ -68,6 +68,7 @@ declare class CyanoBridge {
         message: string;
         url: string;
     }): Promise<{}>;
+    call(req: any): Promise<{}>;
     invokeRead(): void;
     parseMessage(msg: string): any;
     onMessage(handler: (res: any) => {}): void;
