@@ -6,7 +6,7 @@ export const messageApi = {
             action: 'login',
             version,
             params,
-            needTimeout: true
+            needTimeout: false
         };
         return call(req);
     },

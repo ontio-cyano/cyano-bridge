@@ -19,15 +19,15 @@ npm install cyanobridge
 ### Import CommonJS
 
 ```
-var CyanoBridge = require('cyanobridge').CyanoBridge
-const cyanoBridge = new CyanoBridge()
+var client = require('cyanobridge').client
+client.registerClient();
 ```
 
 ### Import ES6 module
 
 ```
-import { CyanoBridge } from 'cyanobridge'
-const cyanoBridge = new CyanoBridge()
+import { client } from 'cyanobridge'
+client.registerClient();
 ```
 
 ### Web require
@@ -37,8 +37,9 @@ The file to be referenced is under the `./lib` folder.
 ```
 <script src="./lib/browser.js"></script>
 
-var cyanoBridge = new CyanoMobile.CyanoBridge();
-```$$
+var client = CyanoMobile.client;
+client.registerClient();
+```
 
 
 ## Usage
@@ -50,8 +51,8 @@ Here is a [demo app](https://github.com/ontio-cyano/mobile-dapp-demo).
 ## 1. Initialisation
 
 ```
-import { CyanoBridge } from 'cyanobridge'
-const cyanoBridge = new CyanoBridge();
+import { client } from 'cyanobridge'
+client.registerClient();
 ```
 
 
@@ -63,16 +64,18 @@ Requst the account from cyano provider.
 ### Example:
 
 ```
+import { client } from 'cyanobridge'
+
 const params = {
-    dappName: 'My dapp',
-    dappIcon: '' // some url points to the dapp icon
+​    dappName: 'My dapp',
+​    dappIcon: '' // some url points to the dapp icon
 }
 
 try {
-    const res = cyanoBridge.getAccount(params)
-    console.log(res)
+​    const res = await client.api.asset.getAccount(params);
+​    console.log(res)
 } catch(err) {
-    console.log(err)
+​    console.log(err)
 }
 
 ```
@@ -85,14 +88,14 @@ Request the identity from the cyano provider.
 
 ```
 const params = {
-    dappName: 'My dapp',
-    dappIcon: '' // some url points to the dapp icon
+​    dappName: 'My dapp',
+​    dappIcon: '' // some url points to the dapp icon
 }
 try {
-    const res = cyanoBridge.getIdentity(params)
-    console.log(res)
+​    const res = await client.api.identity.getIdentity(params);
+​    console.log(res)
 } catch(err) {
-    console.log(err)
+​    console.log(err)
 }
 ```
 
@@ -120,19 +123,19 @@ Parameter is  a JSON object. It contains:
 
 ```
 const params = {
-    type: 'account',// account or identity that will sign the message
-    dappName: 'My dapp', // dapp's name
-    dappIcon: 'http://mydapp.com/icon.png', // some url that points to the dapp's icon
-    message: 'test message', // message sent from dapp that will be signed by native client
-    expired: new Date('2019-01-01').getTime(), // expired date of login
-    callback: '' // callback url of dapp
+​    type: 'account',// account or identity that will sign the message
+​    dappName: 'My dapp', // dapp's name
+​    dappIcon: 'http://mydapp.com/icon.png', // some url that points to the dapp's icon
+​    message: 'test message', // message sent from dapp that will be signed by native client
+​    expired: new Date('2019-01-01').getTime(), // expired date of login
+​    callback: '' // callback url of dapp
 }
 let res;
 try {
-    res = cyanoBridge.login(params)
-    console.log(res)
+​    res = await client.api.message.login(params);
+​    console.log(res)
 }catch(err) {
-    console.log(err)
+​    console.log(err)
 }
 // verify signature here
 
@@ -180,27 +183,73 @@ Parameter are as below:
 const scriptHash = 'cd948340ffcf11d4f5494140c93885583110f3e9';
 const operation = 'test'
 const args = [
-    {
-        type: 'String',
-        value: 'helloworld'
-    }
+​    {
+​        type: 'String',
+​        value: 'helloworld'
+​    }
 ]
 const gasPrice = 500;
 const gasLimit = 20000;
 const payer = 'AecaeSEBkt5GcBCxwz1F41TvdjX3dnKBkJ'
 const config = {
-    "login": true,
-    "message": "invoke smart contract test",
-    "url": ""  
+​    "login": true,
+​    "message": "invoke smart contract test",
+​    "url": ""  
 }
+const params = {
+          scriptHash,
+          operation,
+          args,
+          gasPrice,
+          gasLimit,
+          payer,
+          config
+        }
 try {
-   const res = cyanoBridge.invoke(scriptHash, operation, args, gasPrice, gasLimit, payer, config) 
-} catch(err) {
-    console.log(err)
+   const res = await client.api.smartContract.invoke(params);
+   } catch(err) {
+​    console.log(err)
 }
 
 ```
 
+## 5. InvokeRead smart contract
+
+Request to pre-exe some smart contract methods with cyano provider.The parameters are similar with invoke smart contract.
+
+### Example:
+
+```
+const scriptHash = 'b5a1f2cd4e27b7453111a2f5eb737714ead8fded';
+      const operation = 'balanceOf';
+      const args = [{
+          "name": "account",
+          "type" : 'Address',
+          "value": "AQf4Mzu1YJrhz9f3aRkkwSm9n3qhXGSh4p"
+        }]
+        const gasPrice = 500;
+        const gasLimit = 20000;
+        const config = {
+          "login": true,
+          "message": "invoke read smart contract test",
+          "url": ""
+        }
+        const params = {
+          scriptHash,
+          operation,
+          args,
+          gasPrice,
+          gasLimit,
+          config
+        }
+        try{
+          const res = await client.api.smartContract.invokeRead(params);
+          console.log('dapp receive: ' + JSON.stringify(res));
+          this.invokeReadRes = JSON.stringify(res);
+        }catch(err) {
+          console.log(err);
+        }
+```
 
 
 # Build
@@ -213,7 +262,7 @@ try {
 ## Install
 
 ```
-npm install
+npm install cyanobridge --save
 ```
 
 ## Development build
@@ -231,3 +280,4 @@ npm run build:prod
 ```
 
 The packaged result will be in `/lib`
+
