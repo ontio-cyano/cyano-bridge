@@ -195,7 +195,7 @@ class CyanoBridge {
         window.postMessage(msg, '*');
     }
 
-    private handleMessageEvent(resolve: any, reject: any, action: string, needTimeout: boolean = true) {
+    private handleMessageEvent(resolve: any, reject: any, action: string, needTimeout: boolean = false) {
         const handler = (event: any) => {
             const message = event.data;
             if (!message) {
