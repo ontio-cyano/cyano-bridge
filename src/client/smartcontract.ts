@@ -91,5 +91,52 @@ export const scApi = {
             }
         };
         return call(req);
+    },
+    invokePasswordFree(params: {
+        scriptHash: string,
+        operation: string,
+        args: any[],
+        gasPrice: number,
+        gasLimit: number,
+        payer: string,
+        config: {
+            login: boolean,
+            message: string,
+            url: string
+        }
+    }) {
+        if (!params.scriptHash || !params.operation || !params.args || params.args.length === 0) {
+            throw new Error('Invalid params.');
+        }
+
+        if (!params.payer) {
+            throw new Error('No payer.');
+        }
+
+        if (!params.config) {
+            params.config = {
+                login: true,
+                message: '',
+                url: ''
+            };
+        }
+        const functionParams = makeInvokeFunction(params.operation, params.args);
+        const req: any = {
+            action: 'invokePasswordFree',
+            version,
+            params: {
+                login: params.config.login,
+                url: params.config.url,
+                message: params.config.message,
+                invokeConfig: {
+                    contractHash: params.scriptHash,
+                    functions: [functionParams],
+                    payer: params.payer,
+                    gasPrice: params.gasLimit = 500,
+                    gasLimit: params.gasPrice = 200000
+                }
+            }
+        };
+        return call(req);
     }
 };

@@ -61,21 +61,39 @@ client.registerClient();
 
 Requst the account from cyano provider.
 
+#### Parameters:
+
+`params` Optional. Defines the name and icon of the dapp.
+
+#### Returns:
+
+```
+{
+    action: 'getAccount',
+    "version": "v1.0.0",
+    error: 0,
+    desc: 'SUCCESS',
+    result: '' // User's address in base58 format
+}
+```
+
+
+
 ### Example:
 
 ```
 import { client } from 'cyanobridge'
 
 const params = {
-​    dappName: 'My dapp',
-​    dappIcon: '' // some url points to the dapp icon
+    dappName: 'My dapp',
+    dappIcon: '' // some url points to the dapp icon
 }
 
 try {
-​    const res = await client.api.asset.getAccount(params);
-​    console.log(res)
+    const res = await client.api.asset.getAccount(params);
+    console.log(res)
 } catch(err) {
-​    console.log(err)
+    console.log(err)
 }
 
 ```
@@ -84,18 +102,36 @@ try {
 
 Request the identity from the cyano provider.
 
+#### Parameters:
+
+`params` Optional. Defines the name and icon of the dapp.
+
+#### Returns:
+
+```
+{
+    action: 'getIdentity',
+    "version": "v1.0.0",
+    error: 0,
+    desc: 'SUCCESS',
+    result: '' // User's ONT ID
+}
+```
+
+
+
 #### Example:
 
 ```
 const params = {
-​    dappName: 'My dapp',
-​    dappIcon: '' // some url points to the dapp icon
+    dappName: 'My dapp',
+    dappIcon: '' // some url points to the dapp icon
 }
 try {
-​    const res = await client.api.identity.getIdentity(params);
-​    console.log(res)
+   const res = await client.api.identity.getIdentity(params);
+    console.log(res)
 } catch(err) {
-​    console.log(err)
+    console.log(err)
 }
 ```
 
@@ -104,6 +140,8 @@ try {
 ## 3. login
 
 Request to sign a message and get the signature from cyano provider.
+
+#### Parameters:
 
 Parameter is  a JSON object. It contains:
 
@@ -119,23 +157,41 @@ Parameter is  a JSON object. It contains:
 
 `callback` Callback url for dapp.
 
+#### Returns:
+
+```
+{
+	"action": "login",
+	"version": "v1.0.0",
+	"params": {
+		"type": "ontid or account",
+		"user": "did:ont:AUEKhXNsoAT27HJwwqFGbpRy8QLHUMBMPz",
+		"message": "helloworld",
+		"publickey": "0205c8fff4b1d21f4b2ec3b48cf88004e38402933d7e914b2a0eda0de15e73ba61",
+		"signature": "01abd7ea9d79c857cd838cabbbaad3efb44a6fc4f5a5ef52ea8461d6c055b8a7cf324d1a58962988709705cefe40df5b26e88af3ca387ec5036ec7f5e6640a1754"
+	}
+}
+```
+
+
+
 #### Example:
 
 ```
 const params = {
-​    type: 'account',// account or identity that will sign the message
-​    dappName: 'My dapp', // dapp's name
-​    dappIcon: 'http://mydapp.com/icon.png', // some url that points to the dapp's icon
-​    message: 'test message', // message sent from dapp that will be signed by native client
-​    expired: new Date('2019-01-01').getTime(), // expired date of login
-​    callback: '' // callback url of dapp
+    type: 'account',// account or identity that will sign the message
+    dappName: 'My dapp', // dapp's name
+    dappIcon: 'http://mydapp.com/icon.png', // some url that points to the dapp's icon
+    message: 'test message', // message sent from dapp that will be signed by native client
+    expired: new Date('2019-01-01').getTime(), // expired date of login
+    callback: '' // callback url of dapp
 }
 let res;
 try {
-​    res = await client.api.message.login(params);
-​    console.log(res)
+    res = await client.api.message.login(params);
+    console.log(res)
 }catch(err) {
-​    console.log(err)
+    console.log(err)
 }
 // verify signature here
 
@@ -147,6 +203,8 @@ try {
 
 Request to inovke some smart contract methods with cyano provider.
 
+#### Parameters:
+
 Parameter are as below:
 
 `scriptHash` Script hash of smart contract
@@ -155,7 +213,7 @@ Parameter are as below:
 
 `args` Array of parameters. Each parameter should contain `type` and `value`
 
-> The `type` includes: `String`, `ByteArray`,  `Long`(use string for long value), `Integer`, `Address`(use base58 format address value), `Array`, `Map`.
+All supported parameters  see [Supported parameters list](#supported-parameters-list)
 
 `gasPrice` Gas price
 
@@ -177,24 +235,38 @@ Parameter are as below:
 >
 > }
 
+#### Returns:
+
+```
+{
+	"action": "invoke",
+	"version": "v1.0.0",
+	"error": 0,
+	"desc": "SUCCESS",
+	"result": "txhash" // Transaction hash
+}
+```
+
+> dApp then use the Ontology restful api to query the event of this invokation.  Restful api details are [here](http://dev-docs.ont.io/#/docs-en/API/02-restful_api)
+
 ### Example:
 
 ```
 const scriptHash = 'cd948340ffcf11d4f5494140c93885583110f3e9';
 const operation = 'test'
 const args = [
-​    {
-​        type: 'String',
-​        value: 'helloworld'
-​    }
+    {
+        type: 'String',
+        value: 'helloworld'
+    }
 ]
 const gasPrice = 500;
 const gasLimit = 20000;
 const payer = 'AecaeSEBkt5GcBCxwz1F41TvdjX3dnKBkJ'
 const config = {
-​    "login": true,
-​    "message": "invoke smart contract test",
-​    "url": ""  
+    "login": true,
+    "message": "invoke smart contract test",
+    "url": ""  
 }
 const params = {
           scriptHash,
@@ -208,7 +280,7 @@ const params = {
 try {
    const res = await client.api.smartContract.invoke(params);
    } catch(err) {
-​    console.log(err)
+    console.log(err)
 }
 
 ```
@@ -250,6 +322,121 @@ const scriptHash = 'b5a1f2cd4e27b7453111a2f5eb737714ead8fded';
           console.log(err);
         }
 ```
+
+## 6. Invoke smart contract without password
+
+Request to invoke some smart contract method without password. The provider will ask user to enter password to sign  transaction at the first time. User can invoke the same smart contract method without password after that.
+
+#### Example:
+
+```
+const scriptHash = 'cd948340ffcf11d4f5494140c93885583110f3e9';
+const operation = 'test'
+const args = [
+    {
+        type: 'String',
+        value: 'helloworld'
+    }
+]
+const gasPrice = 500;
+const gasLimit = 20000;
+const payer = 'AecaeSEBkt5GcBCxwz1F41TvdjX3dnKBkJ'
+const config = {
+    "login": true,
+    "message": "invoke smart contract test",
+    "url": ""  
+}
+const params = {
+          scriptHash,
+          operation,
+          args,
+          gasPrice,
+          gasLimit,
+          payer,
+          config
+        }
+try {
+   const res = await client.api.smartContract.invokePasswordFree(params);
+   } catch(err) {
+    console.log(err)
+}
+```
+
+## Supported parameters list
+
+#### Integer
+
+```
+{
+    type: "Integer",
+    value: 10
+}
+```
+
+#### Long
+
+```
+{
+    type: 'Long',
+    value: '12345678901234567'
+}
+```
+
+#### String
+
+```
+{
+    type: 'String',
+    value: 'hello world'
+}
+```
+
+#### ByteArray
+
+```
+{
+    type: 'ByteArray',
+    value: 'abababab'
+}
+```
+
+#### Address
+
+```
+{
+    type: 'Address',
+    value: 'AXK2KtCfcJnSMyRzSwTuwTKgNrtx5aXfFX'
+}
+```
+
+### Array
+
+```
+{
+    type: 'Array',
+    value: [
+        {
+            type: 'String',
+            value: 'hello world'
+        }
+    ]
+}
+```
+
+#### Map
+
+```
+{
+    type: 'Map',
+    value: {
+        key1: {
+            type: 'Integer',
+            value: 100
+        }
+    }
+}
+```
+
 
 
 # Build

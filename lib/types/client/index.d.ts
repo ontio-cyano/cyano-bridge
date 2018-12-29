@@ -52,6 +52,19 @@ declare const api: {
                 url: string;
             };
         }): Promise<{}>;
+        invokePasswordFree(params: {
+            scriptHash: string;
+            operation: string;
+            args: any[];
+            gasPrice: number;
+            gasLimit: number;
+            payer: string;
+            config: {
+                login: boolean;
+                message: string;
+                url: string;
+            };
+        }): Promise<{}>;
     };
 };
 export { registerClient, api };
