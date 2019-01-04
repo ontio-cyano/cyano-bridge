@@ -79,7 +79,7 @@ Requst the account from cyano provider.
 
 
 
-### Example:
+#### Example:
 
 ```
 import { client } from 'cyanobridge'
@@ -249,7 +249,7 @@ All supported parameters  see [Supported parameters list](#supported-parameters-
 
 > dApp then use the Ontology restful api to query the event of this invokation.  Restful api details are [here](http://dev-docs.ont.io/#/docs-en/API/02-restful_api)
 
-### Example:
+#### Example:
 
 ```
 const scriptHash = 'cd948340ffcf11d4f5494140c93885583110f3e9';
@@ -289,7 +289,7 @@ try {
 
 Request to pre-exe some smart contract methods with cyano provider.The parameters are similar with invoke smart contract.
 
-### Example:
+#### Example:
 
 ```
 const scriptHash = 'b5a1f2cd4e27b7453111a2f5eb737714ead8fded';
@@ -361,6 +361,78 @@ try {
     console.log(err)
 }
 ```
+
+## 7. Helper methods for generating QrCode
+
+### 7.1 login
+
+#### Parameters:
+
+Parameter is a `JSON` object:
+
+```
+{
+    "type": "ontid or account",
+    "dappName": "dapp Name",
+    "dappIcon": "dapp Icon",
+    "message": "helloworld",
+    "expire": 1546415363, // QR Code expire time
+    "callback": "http://101.132.193.149:4027/blockchain/v1/common/test-onto-login"
+ }
+```
+
+#### Return:
+
+Return JSON string to generate QrCode.
+
+#### Example:
+
+```
+const params = {
+    "type": "account",
+    "dappName": "dapp Name",
+    "dappIcon": "dapp Icon",
+    "message": "helloworld",
+    "expire": 1546415363, // QR Code expire time
+    "callback": "http://101.132.193.149:4027/blockchain/v1/common/test-onto-login"
+}
+const result = client.api.qrcode.login(params)
+// use result to generate QrCode
+```
+
+### 7.2 Invoke smart contract
+
+#### Parameters:
+
+Parameter is a `JSON` object:
+
+```
+"params": {
+		"login": true, // Define if the invoke needs login status
+		"callback": "http://101.132.193.149:4027/invoke/callback",	// Url of callback	
+		"qrcodeUrl": 		"http://101.132.193.149:4027/qrcode/AUr5QUfeBADq6BMY6Tp5yuMsUNGpsD7nLZ"
+		//Url of parameters
+	}
+```
+
+#### Return:
+
+Return JSON string to generate QrCode.
+
+#### Example:
+
+```
+const params = {
+		"login": true,
+		"callback": "http://101.132.193.149:4027/invoke/callback",		
+		"qrcodeUrl": "http://101.132.193.149:4027/qrcode/AUr5QUfeBADq6BMY6Tp5yuMsUNGpsD7nLZ"
+	}
+const result = client.api.qrcode.invoke(params);
+```
+
+
+
+
 
 ## Supported parameters list
 

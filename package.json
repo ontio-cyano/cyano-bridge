@@ -1,6 +1,6 @@
 {
   "name": "cyanobridge",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "JS bridge for Ontology mobile dapp",
   "main": "./lib/index.js",
   "types": "./lib/types/index.d.ts",
@@ -29,9 +29,7 @@
   },
   "homepage": "https://github.com/ontology-cyano/cyano-dapi-mobile#readme",
   "dependencies": {
-    "@types/uuid": "^3.4.4",
-    "mocha": "^5.2.0",
-    "uuid": "^3.3.2"
+    "mocha": "^5.2.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

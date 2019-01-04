@@ -1,4 +1,4 @@
-import * as uuid from 'uuid';
+import { randomId } from './utils';
 
 class CyanoBridge {
 
@@ -15,7 +15,7 @@ class CyanoBridge {
     }
 
     call(req: any) {
-        const id = uuid();
+        const id = randomId();
         req.id = id;
         return new Promise((resolve, reject) => {
             const msg = btoa(encodeURIComponent(JSON.stringify(req)));

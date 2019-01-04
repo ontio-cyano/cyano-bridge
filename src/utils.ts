@@ -39,3 +39,7 @@ export function makeInvokeFunction(operation: string, args: any[]) {
     };
     return obj;
 }
+
+export function randomId() {
+    return Math.random().toString(36).substring(2, 10);
+}

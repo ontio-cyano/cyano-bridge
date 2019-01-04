@@ -9,3 +9,4 @@ export declare function makeInvokeFunction(operation: string, args: any[]): {
         value: any;
     }[];
 };
+export declare function randomId(): string;
