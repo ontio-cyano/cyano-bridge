@@ -6,12 +6,16 @@ class CyanoBridge {
     listener: (e: any) => any;
     timeout: number = 3000;
     handlers: any;
+    checkInterval: number;
+    injected: boolean;
+
     constructor(timeout?: number) {
         this.version = 'v1.0.0';
         this.handlers = {};
         if (timeout) {
             this.timeout = timeout;
         }
+        this.injected = false;
     }
 
     call(req: any) {
@@ -50,7 +54,19 @@ class CyanoBridge {
     }
 
     private sendMessage(msg: string) {
-        window.postMessage(msg, '*');
+        // provider will inject originalPostMessage method in js
+        // detect this method to decide when to send msssage
+        if (this.injected) {
+            window.postMessage(msg, '*');
+            return;
+        }
+        this.checkInterval = window.setInterval(() => {
+            if ((window as any).originalPostMessage) {
+                window.postMessage(msg, '*');
+                this.injected = true;
+                window.clearInterval(this.checkInterval);
+            }
+        }, 100);
     }
 
     private handleMessageEvent(

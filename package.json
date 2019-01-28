@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/ontology-cyano/cyano-dapi-mobile#readme",
   "dependencies": {
+    "@types/node": "^10.12.18",
     "mocha": "^5.2.0"
   },
   "devDependencies": {

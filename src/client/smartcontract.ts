@@ -16,7 +16,7 @@ export const scApi = {
             url: string
         }
     }) {
-        if (!params.scriptHash || !params.operation || !params.args || params.args.length === 0) {
+        if (!params.scriptHash || !params.operation || !params.args) {
             throw new Error('Invalid params.');
         }
         if (!params.payer) {
@@ -62,7 +62,7 @@ export const scApi = {
             url: string
         }
     }) {
-        if (!params.scriptHash || !params.operation || !params.args || params.args.length === 0) {
+        if (!params.scriptHash || !params.operation || !params.args) {
             throw new Error('Invalid params.');
         }
 

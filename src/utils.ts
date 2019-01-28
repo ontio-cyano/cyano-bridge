@@ -43,3 +43,17 @@ export function makeInvokeFunction(operation: string, args: any[]) {
 export function randomId() {
     return Math.random().toString(36).substring(2, 10);
 }
+
+export function ready(callback: () => void) {
+    if (typeof document === 'undefined') {
+        throw new Error('document-ready only runs in the browser');
+    }
+    const state = document.readyState;
+    if (state === 'complete' || state === 'interactive') {
+        return setTimeout(callback, 0);
+    }
+
+    document.addEventListener('DOMContentLoaded', function onLoad() {
+        callback();
+    });
+}

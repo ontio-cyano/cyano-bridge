@@ -3,6 +3,8 @@ declare class CyanoBridge {
     listener: (e: any) => any;
     timeout: number;
     handlers: any;
+    checkInterval: number;
+    injected: boolean;
     constructor(timeout?: number);
     call(req: any): Promise<{}>;
     invokeRead(): void;
