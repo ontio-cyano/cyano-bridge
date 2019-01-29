@@ -5,6 +5,7 @@ declare class CyanoBridge {
     handlers: any;
     checkInterval: number;
     injected: boolean;
+    pendingMsgs: any[];
     constructor(timeout?: number);
     call(req: any): Promise<{}>;
     invokeRead(): void;
