@@ -8,6 +8,7 @@ class CyanoBridge {
     handlers: any;
     checkInterval: number;
     injected: boolean;
+    pendingMsgs: any [];
 
     constructor(timeout?: number) {
         this.version = 'v1.0.0';
@@ -16,6 +17,7 @@ class CyanoBridge {
             this.timeout = timeout;
         }
         this.injected = false;
+        this.pendingMsgs = [];
     }
 
     call(req: any) {
@@ -60,10 +62,17 @@ class CyanoBridge {
             window.postMessage(msg, '*');
             return;
         }
+        if (this.checkInterval) {
+            this.pendingMsgs.push(msg);
+            return;
+        }
         this.checkInterval = window.setInterval(() => {
             if ((window as any).originalPostMessage) {
                 window.postMessage(msg, '*');
                 this.injected = true;
+                this.pendingMsgs.forEach((m: string) => {
+                    window.postMessage(m, '*');
+                });
                 window.clearInterval(this.checkInterval);
             }
         }, 100);
