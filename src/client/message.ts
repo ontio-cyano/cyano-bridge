@@ -3,7 +3,7 @@ import { call, version } from './proxy';
 export const messageApi = {
     signMessage(params: {message: string}) {
         const req = {
-            action: 'login',
+            action: 'signMessage',
             version,
             params,
             needTimeout: false

@@ -10,7 +10,7 @@ export const scApi = {
         gasPrice: number,
         gasLimit: number,
         payer: string,
-        config: {
+        config?: {
             login: boolean,
             message: string,
             url: string
@@ -56,7 +56,7 @@ export const scApi = {
         gasPrice: number,
         gasLimit: number,
         payer?: string,
-        config: {
+        config?: {
             login: boolean,
             message: string,
             url: string

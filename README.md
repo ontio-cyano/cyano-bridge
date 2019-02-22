@@ -50,14 +50,36 @@ Here is a [demo app](https://github.com/ontio-cyano/mobile-dapp-demo).
 
 ## 1. Initialisation
 
+### 1.1 Register client
+
+> Please register it at the begining of your project. You can set the client as a global variable.
+
 ```
 import { client } from 'cyanobridge'
 client.registerClient();
 ```
 
+### 1.2 Get provider
+
+You can use this api to see if there is a provider.
+
+```
+import { client } from 'cyanobridge'
 
 
-## 2. getAccount
+try {
+    const res = await client.api.provider.getProvider();
+    console.log(res)
+} catch(err) {
+    console.log(err)
+}
+```
+
+
+
+## 2. Account and Identituy
+
+### 2.1 getAccount
 
 Requst the account from cyano provider.
 
@@ -98,7 +120,7 @@ try {
 
 ```
 
-## 2. getIdentity
+### 2.2 getIdentity
 
 Request the identity from the cyano provider.
 
@@ -129,6 +151,125 @@ const params = {
 }
 try {
    const res = await client.api.identity.getIdentity(params);
+    console.log(res)
+} catch(err) {
+    console.log(err)
+}
+```
+
+### 2.3 Transfer assets
+
+Transfer ONT/ONG
+
+#### Parameters:
+
+`params` 
+
+#### Returns:
+
+```
+{
+    action: 'invoke',
+    "version": "v1.0.0",
+    error: 0,
+    desc: 'SUCCESS',
+    result: '' // Transaction hash
+}
+```
+
+
+
+#### Example:
+
+```
+const params = {
+    from: 'AdLUBSSHUuFaak9j169hiamXUmPuCTnaRz',// Sender's address
+    to: 'AXK2KtCfcJnSMyRzSwTuwTKgNrtx5aXfFX', // Receiver's address
+    asset: 'ONG', // Asset type. ONT or ONG
+    amount: 1000000000,// Amount to send.The value can be 'number' or 'string'
+    gasPrice: 500,
+    gasLimit: 20000
+}
+try {
+   const res = await client.api.asset.transfer(params);
+    console.log(res)
+} catch(err) {
+    console.log(err)
+}
+```
+
+
+
+### 2.4 Register ONT ID
+
+Register ONT ID. 
+
+> The ONT ID should be 'did:ont' + user's address
+
+#### Parameters:
+
+`params` 
+
+#### Returns:
+
+```
+{
+    action: 'invoke',
+    "version": "v1.0.0",
+    error: 0,
+    desc: 'SUCCESS',
+    result: '' // Transaction hash
+}
+```
+
+
+
+#### Example:
+
+```
+const params = {
+    ontid: 'did:ont:AdLUBSSHUuFaak9j169hiamXUmPuCTnaRz',// ONT ID to register
+    publicKey: 'AXK2KtCfcJnSMyRzSwTuwTKgNrtx5aXfFX', // Publickey of ONT ID
+    pyaer: 'AdLUBSSHUuFaak9j169hiamXUmPuCTnaRz', // Payer of the transaction
+    gasPrice: 500,
+    gasLimit: 20000
+}
+try {
+   const res = await client.api.identity.registerOntId(params);
+    console.log(res)
+} catch(err) {
+    console.log(err)
+}
+```
+
+### 2.5 getDDO
+
+Query the DDO of ONT ID.
+
+#### Parameters:
+
+`params` 
+
+#### Returns:
+
+```
+{
+    action: 'invoke',
+    "version": "v1.0.0",
+    error: 0,
+    desc: 'SUCCESS',
+    result: '' // Serialized DDO.Should use ontology's sdk to deserialzie it to get plain 				  // object.
+}
+```
+
+
+
+#### Example:
+
+```
+const ontid = 'did:ont:AdLUBSSHUuFaak9j169hiamXUmPuCTnaRz',// ONT ID
+try {
+   const res = await client.api.identity.getDDO(ontid);
     console.log(res)
 } catch(err) {
     console.log(err)
@@ -429,8 +570,6 @@ const params = {
 	}
 const result = client.api.qrcode.invoke(params);
 ```
-
-
 
 
 

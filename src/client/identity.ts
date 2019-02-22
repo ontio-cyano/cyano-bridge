@@ -1,4 +1,5 @@
 import { call, version } from './proxy';
+import { scApi } from './smartcontract';
 // const subactions = ['getRegistryOntidTx', 'faceRecognition', 'submit',
 //     'requestAuthorization', 'getAuthorizationInfo', 'decryptClaim', 'deleteOntid', 'exportOntid];
 
@@ -53,5 +54,45 @@ export const identityApi = {
         //     throw new Error('Invalid params. Wrong "subaction" ' + params.subaction);
         // }
         return call(req);
+    },
+
+    registerOntId({ontid, publicKey, payer, gasPrice, gasLimit}:
+         {ontid: string, publicKey: string, payer: string, gasPrice?: number, gasLimit?: number}) {
+        const ONTID_CONTRACT = '0300000000000000000000000000000000000000';
+        const params = {
+            scriptHash: ONTID_CONTRACT,
+            operation: 'regIDWithPublicKey',
+            args: [
+                {
+                    name: 'ontid',
+                    value: 'String:' + ontid
+                },
+                {
+                    name: 'pk',
+                    value: 'ByteArrary:' + publicKey
+                }
+            ],
+            gasPrice: gasPrice = 500,
+            gasLimit: gasLimit = 20000,
+            payer
+        };
+        return scApi.invoke(params);
+    },
+
+    getDDO(ontid: string) {
+        const ONTID_CONTRACT = '0300000000000000000000000000000000000000';
+        const params = {
+            scriptHash: ONTID_CONTRACT,
+            operation: 'getDDO',
+            args: [
+                {
+                    name: 'ontid',
+                    value: 'String:' + ontid
+                }
+            ],
+            gasPrice: 500,
+            gasLimit: 20000
+        };
+        return scApi.invokeRead(params);
     }
 };
