@@ -5,6 +5,14 @@ declare const api: {
             dappName: string;
             dappIcon: string;
         } | undefined): Promise<{}>;
+        transfer({ from, to, asset, amount, gasPrice, gasLimit }: {
+            from: string;
+            to: string;
+            asset: string;
+            amount: string | number;
+            gasPrice?: number | undefined;
+            gasLimit?: number | undefined;
+        }): Promise<{}>;
     };
     identity: {
         getIdentity(params?: {
@@ -17,6 +25,14 @@ declare const api: {
         authorization(params: {
             subaction: string;
         }): Promise<{}>;
+        registerOntId({ ontid, publicKey, payer, gasPrice, gasLimit }: {
+            ontid: string;
+            publicKey: string;
+            payer: string;
+            gasPrice?: number | undefined;
+            gasLimit?: number | undefined;
+        }): Promise<{}>;
+        getDDO(ontid: string): Promise<{}>;
     };
     message: {
         signMessage(params: {
@@ -39,11 +55,11 @@ declare const api: {
             gasPrice: number;
             gasLimit: number;
             payer: string;
-            config: {
+            config?: {
                 login: boolean;
                 message: string;
                 url: string;
-            };
+            } | undefined;
         }): Promise<{}>;
         invokeRead(params: {
             scriptHash: string;
@@ -52,11 +68,11 @@ declare const api: {
             gasPrice: number;
             gasLimit: number;
             payer?: string | undefined;
-            config: {
+            config?: {
                 login: boolean;
                 message: string;
                 url: string;
-            };
+            } | undefined;
         }): Promise<{}>;
         invokePasswordFree(params: {
             scriptHash: string;
@@ -86,6 +102,9 @@ declare const api: {
             callback: string;
             qrcodeUrl: string;
         }): string;
+    };
+    provider: {
+        getProvider(): Promise<{}>;
     };
 };
 export { registerClient, api };

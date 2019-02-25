@@ -65,11 +65,13 @@ export const identityApi = {
             args: [
                 {
                     name: 'ontid',
-                    value: 'String:' + ontid
+                    type: 'String',
+                    value: ontid
                 },
                 {
                     name: 'pk',
-                    value: 'ByteArrary:' + publicKey
+                    type: 'ByteArray',
+                    value: publicKey
                 }
             ],
             gasPrice: gasPrice = 500,
@@ -87,7 +89,8 @@ export const identityApi = {
             args: [
                 {
                     name: 'ontid',
-                    value: 'String:' + ontid
+                    type: 'String',
+                    value:  ontid
                 }
             ],
             gasPrice: 500,

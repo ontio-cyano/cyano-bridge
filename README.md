@@ -205,6 +205,7 @@ try {
 Register ONT ID. 
 
 > The ONT ID should be 'did:ont' + user's address
+> The register would fail if the ONT ID has been registered.
 
 #### Parameters:
 
@@ -229,8 +230,8 @@ Register ONT ID.
 ```
 const params = {
     ontid: 'did:ont:AdLUBSSHUuFaak9j169hiamXUmPuCTnaRz',// ONT ID to register
-    publicKey: 'AXK2KtCfcJnSMyRzSwTuwTKgNrtx5aXfFX', // Publickey of ONT ID
-    pyaer: 'AdLUBSSHUuFaak9j169hiamXUmPuCTnaRz', // Payer of the transaction
+    publicKey: '0212f54726f1eb9322519b4afafb7c38394f32807866ff1989a93e6c423cff1186', // Publickey of ONT ID
+    payer: 'AdLUBSSHUuFaak9j169hiamXUmPuCTnaRz', // Payer of the transaction
     gasPrice: 500,
     gasLimit: 20000
 }

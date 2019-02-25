@@ -6,11 +6,11 @@ export declare const scApi: {
         gasPrice: number;
         gasLimit: number;
         payer: string;
-        config: {
+        config?: {
             login: boolean;
             message: string;
             url: string;
-        };
+        } | undefined;
     }): Promise<{}>;
     invokeRead(params: {
         scriptHash: string;
@@ -19,11 +19,11 @@ export declare const scApi: {
         gasPrice: number;
         gasLimit: number;
         payer?: string | undefined;
-        config: {
+        config?: {
             login: boolean;
             message: string;
             url: string;
-        };
+        } | undefined;
     }): Promise<{}>;
     invokePasswordFree(params: {
         scriptHash: string;

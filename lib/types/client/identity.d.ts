@@ -9,4 +9,12 @@ export declare const identityApi: {
     authorization(params: {
         subaction: string;
     }): Promise<{}>;
+    registerOntId({ ontid, publicKey, payer, gasPrice, gasLimit }: {
+        ontid: string;
+        publicKey: string;
+        payer: string;
+        gasPrice?: number | undefined;
+        gasLimit?: number | undefined;
+    }): Promise<{}>;
+    getDDO(ontid: string): Promise<{}>;
 };

@@ -24,15 +24,18 @@ export const assetApi = {
             args: [
                 {
                     name: 'from',
-                    value: 'Address:' + from
+                    type: 'Address',
+                    value: from
                 },
                 {
                     name: 'to',
-                    value: 'Address:' + to
+                    type: 'Address',
+                    value: to
                 },
                 {
                     name: 'amount',
-                    value: 'Long:' + amount // Handler for number and string is the same
+                    type: typeof amount === 'number' ?  'Integer' : 'Long',
+                    value: amount // Handler for number and string is the same
                 }
             ],
             gasPrice: gasPrice = 500,
