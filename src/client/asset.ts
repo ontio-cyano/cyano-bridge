@@ -34,7 +34,7 @@ export const assetApi = {
                 },
                 {
                     name: 'amount',
-                    type: typeof amount === 'number' ?  'Integer' : 'Long',
+                    type: 'Long',
                     value: amount // Handler for number and string is the same
                 }
             ],
