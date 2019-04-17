@@ -42,8 +42,8 @@ export const scApi = {
                     contractHash: params.scriptHash,
                     functions: [functionParams],
                     payer: params.payer,
-                    gasPrice: params.gasLimit = 500,
-                    gasLimit: params.gasPrice = 200000
+                    gasPrice: params.gasPrice ? params.gasPrice : 500,
+                    gasLimit: params.gasLimit ? params.gasLimit : 20000
                 }
             }
         };
@@ -85,8 +85,8 @@ export const scApi = {
                     contractHash: params.scriptHash,
                     functions: [functionParams],
                     payer: params.payer,
-                    gasPrice: params.gasLimit = 500,
-                    gasLimit: params.gasPrice = 200000
+                    gasPrice: params.gasPrice ? params.gasPrice : 500,
+                    gasLimit: params.gasLimit ? params.gasLimit : 20000
                 }
             }
         };
@@ -132,8 +132,8 @@ export const scApi = {
                     contractHash: params.scriptHash,
                     functions: [functionParams],
                     payer: params.payer,
-                    gasPrice: params.gasLimit = 500,
-                    gasLimit: params.gasPrice = 200000
+                    gasPrice: params.gasPrice ? params.gasPrice : 500,
+                    gasLimit: params.gasLimit ? params.gasLimit : 20000
                 }
             }
         };
