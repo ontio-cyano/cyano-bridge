@@ -4,6 +4,7 @@ import { messageApi as message } from './message';
 import { providerApi as provider } from './provider';
 import { qrcodeApi as qrcode } from './qrcode';
 import { scApi as smartContract } from './smartcontract';
+import { stateChannelApi as stateChannel } from './stateChannel';
 
 import { registerClient } from './proxy';
 
@@ -13,7 +14,8 @@ const api = {
     message,
     smartContract,
     qrcode,
-    provider
+    provider,
+    stateChannel
 };
 
 export { registerClient, api};
