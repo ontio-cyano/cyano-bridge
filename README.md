@@ -572,7 +572,18 @@ const params = {
 const result = client.api.qrcode.invoke(params);
 ```
 
+## 8 State Channel
 
+### 8.1 Login
+
+This api is used for login State channel client. The provider will require user to input the password of the account, and return a new private key for login.
+
+#### Example:
+
+````
+const result = client.api.stateChannel.login();
+
+````
 
 ## Supported parameters list
 
