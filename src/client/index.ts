@@ -1,6 +1,7 @@
 import { assetApi as asset } from './asset';
 import { identityApi as identity } from './identity';
 import { messageApi as message } from './message';
+import { mobileApi as mobile } from './mobile';
 import { providerApi as provider } from './provider';
 import { qrcodeApi as qrcode } from './qrcode';
 import { scApi as smartContract } from './smartcontract';
@@ -12,6 +13,7 @@ const api = {
     asset,
     identity,
     message,
+    mobile,
     smartContract,
     qrcode,
     provider,

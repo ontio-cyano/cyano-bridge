@@ -47,6 +47,13 @@ declare const api: {
             callback: string;
         }): Promise<{}>;
     };
+    mobile: {
+        getData(params: import("./mobile").GET_DATA_PARAMS): Promise<{}>;
+        doAction(params: import("./mobile").DO_ACTION_PARAMS): Promise<{}>;
+        gotoWebview(params: import("./mobile").GOTO_WEBVIEW_PARAMS): Promise<{}>;
+        switchIdentity(): Promise<{}>;
+        switchDeviceCode(): Promise<{}>;
+    };
     smartContract: {
         invoke(params: {
             scriptHash: string;
@@ -105,6 +112,9 @@ declare const api: {
     };
     provider: {
         getProvider(): Promise<{}>;
+    };
+    stateChannel: {
+        login(): Promise<{}>;
     };
 };
 export { registerClient, api };
