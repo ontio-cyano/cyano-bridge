@@ -51,6 +51,7 @@ declare const api: {
         getData(params: import("./mobile").GET_DATA_PARAMS): Promise<{}>;
         doAction(params: import("./mobile").DO_ACTION_PARAMS): Promise<{}>;
         gotoWebview(params: import("./mobile").GOTO_WEBVIEW_PARAMS): Promise<{}>;
+        gotoNative(params: import("./mobile").GOTO_NATIVE_PARAMS): Promise<{}>;
         switchIdentity(): Promise<{}>;
         switchDeviceCode(): Promise<{}>;
     };

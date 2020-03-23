@@ -14,6 +14,11 @@ export interface GOTO_WEBVIEW_PARAMS {
     data: any;
 }
 
+export interface GOTO_NATIVE_PARAMS {
+    page: string;
+    data: any;
+}
+
 export const mobileApi = {
     getData(params: GET_DATA_PARAMS) {
         const req = {
@@ -36,6 +41,15 @@ export const mobileApi = {
     gotoWebview(params: GOTO_WEBVIEW_PARAMS) {
         const req = {
             action: 'gotoWebview',
+            version,
+            params,
+            needTimeout: false
+        };
+        return call(req);
+    },
+    gotoNative(params: GOTO_NATIVE_PARAMS) {
+        const req = {
+            action: 'gotoNative',
             version,
             params,
             needTimeout: false
