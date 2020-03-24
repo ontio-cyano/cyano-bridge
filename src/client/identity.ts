@@ -4,12 +4,12 @@ import { scApi } from './smartcontract';
 //     'requestAuthorization', 'getAuthorizationInfo', 'decryptClaim', 'deleteOntid', 'exportOntid];
 
 export const identityApi = {
-    getIdentity(params?: { dappName: string, dappIcon: string }) {
+    getIdentity(params?: { dappName: string, dappIcon: string, needTimeout: boolean }) {
         const req = {
             action: 'getIdentity',
             version,
             params,
-            needTimeout: true
+            needTimeout: params ? params.needTimeout : false
         };
         return call(req);
     },

@@ -4,12 +4,12 @@ import { scApi } from './smartcontract';
 export type Asset = 'ONT' | 'ONG' | string;
 
 export const assetApi = {
-    getAccount(params?: { dappName: string, dappIcon: string }) {
+    getAccount(params?: { dappName: string, dappIcon: string, needTimeout: boolean }) {
         const req = {
             action: 'getAccount',
             version,
             params,
-            needTimeout: true
+            needTimeout: params ? params.needTimeout : false
         };
         return call(req);
     },
