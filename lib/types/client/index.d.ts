@@ -4,6 +4,7 @@ declare const api: {
         getAccount(params?: {
             dappName: string;
             dappIcon: string;
+            needTimeout: boolean;
         } | undefined): Promise<{}>;
         transfer({ from, to, asset, amount, gasPrice, gasLimit }: {
             from: string;
@@ -18,6 +19,7 @@ declare const api: {
         getIdentity(params?: {
             dappName: string;
             dappIcon: string;
+            needTimeout: boolean;
         } | undefined): Promise<{}>;
         authentication(params: {
             subaction: string;
@@ -48,10 +50,10 @@ declare const api: {
         }): Promise<{}>;
     };
     mobile: {
-        getData(params: import("./mobile").GET_DATA_PARAMS): Promise<{}>;
-        doAction(params: import("./mobile").DO_ACTION_PARAMS): Promise<{}>;
-        gotoWebview(params: import("./mobile").GOTO_WEBVIEW_PARAMS): Promise<{}>;
-        gotoNative(params: import("./mobile").GOTO_NATIVE_PARAMS): Promise<{}>;
+        getData(params: import("client/mobile").GET_DATA_PARAMS): Promise<{}>;
+        doAction(params: import("client/mobile").DO_ACTION_PARAMS): Promise<{}>;
+        gotoWebview(params: import("client/mobile").GOTO_WEBVIEW_PARAMS): Promise<{}>;
+        gotoNative(params: import("client/mobile").GOTO_NATIVE_PARAMS): Promise<{}>;
         switchIdentity(): Promise<{}>;
         switchDeviceCode(): Promise<{}>;
     };
@@ -83,6 +85,45 @@ declare const api: {
             } | undefined;
         }): Promise<{}>;
         invokePasswordFree(params: {
+            scriptHash: string;
+            operation: string;
+            args: any[];
+            gasPrice: number;
+            gasLimit: number;
+            payer: string;
+            config: {
+                login: boolean;
+                message: string;
+                url: string;
+            };
+        }): Promise<{}>;
+        invokeWasm(params: {
+            scriptHash: string;
+            operation: string;
+            args: any[];
+            gasPrice: number;
+            gasLimit: number;
+            payer: string;
+            config?: {
+                login: boolean;
+                message: string;
+                url: string;
+            } | undefined;
+        }): Promise<{}>;
+        invokeWasmRead(params: {
+            scriptHash: string;
+            operation: string;
+            args: any[];
+            gasPrice: number;
+            gasLimit: number;
+            payer?: string | undefined;
+            config?: {
+                login: boolean;
+                message: string;
+                url: string;
+            } | undefined;
+        }): Promise<{}>;
+        invokeWasmPasswordFree(params: {
             scriptHash: string;
             operation: string;
             args: any[];
