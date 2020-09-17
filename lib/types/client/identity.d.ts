@@ -2,6 +2,7 @@ export declare const identityApi: {
     getIdentity(params?: {
         dappName: string;
         dappIcon: string;
+        needTimeout: boolean;
     } | undefined): Promise<{}>;
     authentication(params: {
         subaction: string;

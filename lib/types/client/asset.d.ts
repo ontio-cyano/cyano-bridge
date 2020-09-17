@@ -3,6 +3,7 @@ export declare const assetApi: {
     getAccount(params?: {
         dappName: string;
         dappIcon: string;
+        needTimeout: boolean;
     } | undefined): Promise<{}>;
     transfer({ from, to, asset, amount, gasPrice, gasLimit }: {
         from: string;
