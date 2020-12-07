@@ -136,6 +136,9 @@ declare const api: {
                 url: string;
             };
         }): Promise<{}>;
+        sendOntoUrl(url: string): Promise<{}>;
+        getKycVc(): Promise<{}>;
+        getOScoreVc(): Promise<{}>;
     };
     qrcode: {
         login(params: {

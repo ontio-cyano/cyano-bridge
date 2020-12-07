@@ -77,4 +77,7 @@ export declare const scApi: {
             url: string;
         };
     }): Promise<{}>;
+    sendOntoUrl(url: string): Promise<{}>;
+    getKycVc(): Promise<{}>;
+    getOScoreVc(): Promise<{}>;
 };

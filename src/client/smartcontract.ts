@@ -274,5 +274,27 @@ export const scApi = {
             }
         };
         return call(req);
+    },
+    sendOntoUrl(url: string) {
+        const req: any = {
+            action: 'sendOntoUrl',
+            version,
+            params: url,
+        };
+        return call(req);
+    },
+    getKycVc() {
+        const req: any = {
+            action: 'getKycVc',
+            version,
+        };
+        return call(req);
+    },
+    getOScoreVc() {
+        const req: any = {
+            action: 'getOScoreVc',
+            version,
+        };
+        return call(req);
     }
 };
