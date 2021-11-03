@@ -13,4 +13,12 @@ export declare const assetApi: {
         gasPrice?: number | undefined;
         gasLimit?: number | undefined;
     }): Promise<{}>;
+    transferV2({ from, to, asset, amount, gasPrice, gasLimit }: {
+        from: string;
+        to: string;
+        asset: string;
+        amount: string | number;
+        gasPrice?: number | undefined;
+        gasLimit?: number | undefined;
+    }): Promise<{}>;
 };

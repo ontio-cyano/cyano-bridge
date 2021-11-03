@@ -279,21 +279,21 @@ export const scApi = {
         const req: any = {
             action: 'sendOntoUrl',
             version,
-            params: url,
+            params: url
         };
         return call(req);
     },
     getKycVc() {
         const req: any = {
             action: 'getKycVc',
-            version,
+            version
         };
         return call(req);
     },
     getOScoreVc() {
         const req: any = {
             action: 'getOScoreVc',
-            version,
+            version
         };
         return call(req);
     }
