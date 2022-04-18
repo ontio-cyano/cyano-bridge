@@ -1,4 +1,5 @@
 import { assetApi as asset } from './asset';
+import { governanceApi as governance } from './governance';
 import { identityApi as identity } from './identity';
 import { messageApi as message } from './message';
 import { mobileApi as mobile } from './mobile';
@@ -17,7 +18,8 @@ const api = {
     smartContract,
     qrcode,
     provider,
-    stateChannel
+    stateChannel,
+    governance
 };
 
 export { registerClient, api};
