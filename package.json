@@ -1,6 +1,6 @@
 {
   "name": "cyanobridge",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "JS bridge for Ontology mobile dapp",
   "main": "./lib/index.js",
   "types": "./lib/types/index.d.ts",
